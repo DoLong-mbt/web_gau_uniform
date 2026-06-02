@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gấu Uniform - Hệ Thống Đặt Áo Tự Động</title>
+    <link rel="stylesheet" href="style.css"> <!-- File CSS để làm đẹp -->
+</head>
+<body>
+
+    <div class="container">
+        <h1>Chào mừng bạn đến với Gấu Uniform</h1>
+        <p class="subtitle">Vui lòng chọn nhóm đối tượng đặt áo để hệ thống cấu hình phiếu số đo chính xác:</p>
+        
+        <div class="choices-grid">
+            <!-- Lựa chọn 1: Học sinh -->
+            <div class="card" onclick="selectRole('hoc_sinh')">
+                <div class="icon">🎓</div>
+                <h2>Học Sinh / Trường Học</h2>
+                <p>Đặt áo lớp, áo nhóm học sinh, sinh viên kèm mã lớp riêng.</p>
+            </div>
+
+            <!-- Lựa chọn 2: Công ty -->
+            <div class="card" onclick="selectRole('cong_ty')">
+                <div class="icon">🏢</div>
+                <h2>Công Ty / Doanh Nghiệp</h2>
+                <p>Đặt đồng phục cho nhân viên, cơ quan, tổ chức có thông tin phòng ban.</p>
+            </div>
+
+            <!-- Lựa chọn 3: Riêng lẻ -->
+            <div class="card" onclick="selectRole('rieng_le')">
+                <div class="icon">👤</div>
+                <h2>Khách Hàng Cá Nhân</h2>
+                <p>Đặt áo thiết kế riêng hoặc mua lẻ theo số đo cá nhân.</p>
+            </div>
+        </div>
+
+        <!-- Vùng hiển thị Form sau khi khách bấm chọn -->
+        <div id="form-container" class="hidden">
+            <h3 id="form-title"></h3>
+            <div id="iframe-wrapper"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script> <!-- File JS xử lý logic chuyển link -->
+</body>
+</html>
