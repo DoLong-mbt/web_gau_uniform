@@ -103,7 +103,7 @@ async function guiYeuCauTaoForm() {
         alert("Không kết nối được tới cổng server Make.com!");
     } finally {
         // Sau khi xử lý xong (thành công hoặc thất bại) thì mở khóa lại nút bấm ban đầu
-        btnTao.innerText = "Sinh Link Form Riêng trên Drive";
+        btnTao.innerText = "Bấm vào đây để lấy link form";
         btnTao.disabled = false;
     }
 }
