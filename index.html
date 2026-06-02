@@ -4,44 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gấu Uniform - Hệ Thống Đặt Áo Tự Động</title>
-    <link rel="stylesheet" href="style.css"> <!-- File CSS để làm đẹp -->
+    <link rel="stylesheet" href="style.css"> <style>
+        /* Thêm đoạn này để đảm bảo class ẩn hoạt động chuẩn, không bị trắng màn hình */
+        .hidden { display: none !important; }
+        .role-selection { display: flex; justify-content: center; gap: 20px; margin: 30px 0; }
+        .role-card { padding: 20px 40px; background: #f1f5f9; border: 2px solid #cbd5e1; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; text-align: center; }
+        .role-card:hover { background: #007bff; color: white; border-color: #007bff; }
+    </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Chào mừng bạn đến với Gấu Uniform</h1>
-        <p class="subtitle">Vui lòng chọn nhóm đối tượng đặt áo để hệ thống cấu hình phiếu số đo chính xác:</p>
+    <h1 style="text-align: center; margin-top: 40px; color: #1e293b;">HỆ THỐNG QUẢN LÝ ĐƠN HÀNG GẤU UNIFORM</h1>
+    <p style="text-align: center; color: #64748b;">Vui lòng chọn đối tượng đại diện để khởi tạo tiến trình thu thập số đo</p>
+
+    <div class="role-selection">
+        <div class="role-card" onclick="selectRole('hoc_sinh')">Học Sinh / Trường Học</div>
+        <div class="role-card" onclick="selectRole('cong_ty')">Công Ty / Doanh Nghiệp</div>
+        <div class="role-card" onclick="selectRole('rieng_le')">Khách Hàng Cá Nhân</div>
+    </div>
+
+    <div id="form-container" class="hidden" style="margin-top: 40px; padding: 20px;"> 
         
-        <div class="choices-grid">
-            <!-- Lựa chọn 1: Học sinh -->
-            <div class="card" onclick="selectRole('hoc_sinh')">
-                <div class="icon">🎓</div>
-                <h2>Học Sinh / Trường Học</h2>
-                <p>Đặt áo lớp, áo nhóm học sinh, sinh viên kèm mã lớp riêng.</p>
-            </div>
+        <h3 id="form-title" style="text-align: center; margin-bottom: 20px; font-weight: bold; color: #333;">Đường Dẫn Thu Thập Số Đo</h3>
+        
+        <div id="iframe-wrapper">
+            
+            <div id="khung-nhap-lieu-drive" style="display: none; max-width: 500px; margin: 20px auto; padding: 20px; background: #f8f9fa; border-radius: 8px; border: 1px solid #e2e8f0;">
+                
+                <div style="margin-bottom: 15px; text-align: left;">
+                    <label style="display: block; font-weight: bold; margin-bottom: 5px; color: #4a5568;">1. Nhập Tên Trường / Tên Công ty:</label>
+                    <input type="text" id="input-truong" placeholder="Ví dụ: THPT Chu Văn An, Công ty FPT..." style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 14px;">
+                </div>
+                
+                <div style="margin-bottom: 20px; text-align: left;">
+                    <label style="display: block; font-weight: bold; margin-bottom: 5px; color: #4a5568;">2. Nhập Tên Lớp / Phòng ban:</label>
+                    <input type="text" id="input-lop" placeholder="Ví dụ: 12A1, Phòng Marketing..." style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 14px;">
+                </div>
 
-            <!-- Lựa chọn 2: Công ty -->
-            <div class="card" onclick="selectRole('cong_ty')">
-                <div class="icon">🏢</div>
-                <h2>Công Ty / Doanh Nghiệp</h2>
-                <p>Đặt đồng phục cho nhân viên, cơ quan, tổ chức có thông tin phòng ban.</p>
-            </div>
+                <button id="btn-tao-link" onclick="guiYeuCauTaoForm()" style="width: 100%; padding: 12px; background: #007bff; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 16px;">
+                    Bấm vào đây để lấy link form
+                </button>
 
-            <!-- Lựa chọn 3: Riêng lẻ -->
-            <div class="card" onclick="selectRole('rieng_le')">
-                <div class="icon">👤</div>
-                <h2>Khách Hàng Cá Nhân</h2>
-                <p>Đặt áo thiết kế riêng hoặc mua lẻ theo số đo cá nhân.</p>
+                <div id="ket-qua-link-wrapper" style="display: none; margin-top: 25px; padding-top: 20px; border-top: 2px dashed #28a745; text-align: center;">
+                    <p style="color: #28a745; font-weight: bold; margin-bottom: 10px; font-size: 16px;">✓ Hệ thống Drive đã khởi tạo thư mục riêng thành công!</p>
+                    <p style="color: #555; font-size: 14px; margin-bottom: 10px;">Copy liên kết dưới đây gửi vào nhóm Zalo để mọi người tự điền số đo:</p>
+                    
+                    <div style="display: flex; gap: 10px; justify-content: center; align-items: center;">
+                        <input type="text" id="link-copy-input" readonly style="flex: 1; padding: 10px; text-align: center; font-weight: 500; border: 1px solid #cbd5e1; border-radius: 4px; background: #fff; font-size: 14px; color: #333;">
+                        <button onclick="copyLinkHethong()" style="padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">Copy</button>
+                    </div>
+                    <p id="copy-success-msg" style="color: #28a745; margin-top: 8px; font-weight: bold; display: none;">✓ Đã sao chép vào bộ nhớ tạm!</p>
+                </div>
+                
             </div>
-        </div>
-
-        <!-- Vùng hiển thị Form sau khi khách bấm chọn -->
-        <div id="form-container" class="hidden">
-            <h3 id="form-title"></h3>
-            <div id="iframe-wrapper"></div>
         </div>
     </div>
 
-    <script src="script.js"></script> <!-- File JS xử lý logic chuyển link -->
-</body>
+    <script src="script.js"></script> </body>
 </html>
